@@ -70,6 +70,19 @@ class AddEditViewModel extends ChangeNotifier {
     }
   }
 
+  Future<bool> delete(int id) async {
+  _setState(ViewState.loading);
+  try {
+    await _deleteDiscountUseCase(id);
+    _setState(ViewState.success);
+    return true;
+  } catch (e) {
+    _errorMessage = 'Error al eliminar: $e';
+    _setState(ViewState.error);
+    return false;
+  }
+}
+
   void _setState(ViewState state) {
     _state = state;
     notifyListeners();

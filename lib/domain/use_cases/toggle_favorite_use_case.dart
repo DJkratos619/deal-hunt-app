@@ -1,16 +1,10 @@
-import 'package:app_descuento_virtual/data/models/discount.dart';
 import 'package:app_descuento_virtual/data/repositories/discount_repository.dart';
 
-class SaveDiscountUseCase {
+class ToggleFavoriteUseCase {
   final IDiscountRepository _repository;
+  ToggleFavoriteUseCase(this._repository);
 
-  SaveDiscountUseCase(this._repository);
-
-  Future<int> call(Discount discount) async {
-    if (discount.id == null) {
-      return _repository.insert(discount);
-    } else {
-      return _repository.update(discount);
-    }
+  Future<void> call(int id, bool currentValue) async {
+    await _repository.toggleFavorite(id, !currentValue);
   }
 }
